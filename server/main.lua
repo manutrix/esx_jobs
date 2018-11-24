@@ -31,8 +31,9 @@ local function Work(source, item)
 					TriggerClientEvent('esx:showNotification', source, _U('not_enough', item[1].requires_name))
 				else
 					if item[i].name ~= _U('delivery') then
-						-- Chances to drop the item
-						if item[i].drop == 100 then
+						if item[i].use_skill == true then -- Item needs skill
+							TriggerEvent('esx_jobs_skill:startWork', xPlayer, item[i])
+						elseif item[i].drop == 100 then -- Chances to drop the item
 							xPlayer.addInventoryItem(item[i].db_name, item[i].add)
 						else
 							local chanceToDrop = math.random(100)
